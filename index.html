@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+            color: #00ff00;
+            font-family: "Courier New", Courier, monospace;
+            overflow: hidden;
+        }
+        #welcome {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1.5em;
+            animation: flicker 2s infinite;
+        }
+        #message {
+            display: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding: 20px;
+        }
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0); }
+        }
+        #welcome {
+            position: relative;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #ff00ff;
+            animation: glitch 0.2s infinite;
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: #00ff00;
+            animation: blink 0.7s step-end infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcome">❤️ Your heart has been hacked, dear CISO! ❤️</div>
+    <div id="message"></div>
+    <script>
+        const welcomeScreen = document.getElementById("welcome");
+        const messageContainer = document.getElementById("message");
+
+        const birthdayMessage = `Happy Birthday, my Sun! 
+
+        Like a firewall, you shield my heart from vulnerabilities and threats of this harsh world. You are my MFA that ensures every moment of joy we share is genuine and secure.
+
+        Your love is the ultimate encryption algorithm for me, transforming even the simplest moments into treasures. Your smile is my zero-trust architecture, verifying my happiness and strengthening my every day.
+
+        As the Moon to your Sun, I find purpose and light in your brilliance, orbiting your warmth and energy. From the very first day! Always remember how much I was drawn to your gravity even when we were far away like the Moon and the Sun. You illuminate my world, dispelling every shadow of doubt or fear. I wanna do the same for you.
+
+        Today is not just your birthday but the incredible force of your presence in my life. You are my hero, my XDR against sorrow, and the NGFW protecting our shared dreams.
+
+        Wishing you a day filled with boundless joy, endless laughter, and a "forever" of love uninterrupted by any glitches or downtimes. My heart will always ping yours, ensuring we stay forever connected.
+
+        I love you beyond the stars, my Sun. 
+
+        Forever yours,
+        Your Moon 🌙`;
+
+        let i = 0;
+
+        function typeMessage() {
+            if (i < birthdayMessage.length) {
+                const char = birthdayMessage[i];
+                messageContainer.innerHTML += char === "\n" ? "<br>" : char;
+                i++;
+                setTimeout(typeMessage, 50);
+            } else {
+                const cursor = document.createElement("span");
+                cursor.classList.add("cursor");
+                messageContainer.appendChild(cursor);
+            }
+        }
+
+        setTimeout(() => {
+            welcomeScreen.style.display = "none";
+            messageContainer.style.display = "block";
+            typeMessage();
+        }, 5000);
+    </script>
+</body>
+</html>
